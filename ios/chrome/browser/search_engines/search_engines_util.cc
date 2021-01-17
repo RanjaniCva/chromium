@@ -23,6 +23,12 @@ namespace {
 // Id of the google id in template_url_prepopulate_data.cc.
 static const int kGoogleEnginePrepopulatedId = 1;
 
+// Id of the DuckduckGo id in template_url_prepopulate_data.cc.
+static const int kDuckduckgoPrepopulatedId = 92;
+
+static Boolean kIsDuckGoAsDefauult;
+
+
 // Update the search engine of the given service to the default ones for the
 // current locale.
 void UpdateSearchEngine(TemplateURLService* service) {
@@ -63,6 +69,42 @@ void UpdateSearchEngine(TemplateURLService* service) {
   }
 }
 
+void updateDuckduckGoSearchEngine(TemplateURLService* service) {
+    LOG(INFO) << "UpdateSearchEngine Duck Go Duck CALLED";
+    
+    DCHECK(service);
+    DCHECK(service->loaded());
+    std::vector<TemplateURL*> old_engines = service->GetTemplateURLs();
+    size_t default_engine_index;
+    std::vector<std::unique_ptr<TemplateURLData>> new_engines =
+    TemplateURLPrepopulateData::GetPrepopulatedEngines(nullptr,
+                                                       &default_engine_index);
+    DCHECK(default_engine_index == 0);
+    DCHECK(new_engines[3]->prepopulate_id == kDuckduckgoPrepopulatedId);
+    
+    const TemplateURL* default_engine = service->GetDefaultSearchProvider();
+    LOG(INFO) << default_engine->prepopulate_id() <<"default_engine";
+    for (auto* engine : old_engines) {
+        LOG(INFO) << engine->prepopulate_id() <<"engine";
+        
+        if (engine->prepopulate_id() == kDuckduckgoPrepopulatedId) {
+            service->SetUserSelectedDefaultSearchProvider(engine);
+            LOG(INFO) << "SetUserSelectedDefaultSearchProvider CALLED";
+            
+            break;
+        }
+    }
+    //}
+    for (auto* engine : old_engines) {
+        if (engine->prepopulate_id() > kDuckduckgoPrepopulatedId)
+            service->Remove(engine);
+    }
+    for (const auto& engine : new_engines) {
+        if (engine->prepopulate_id != kDuckduckgoPrepopulatedId)
+            service->Add(std::make_unique<TemplateURL>(*engine));
+    }
+}
+
 // Observer class that allows to wait for the TemplateURLService to be loaded.
 // This class will delete itself as soon as the TemplateURLService is loaded.
 class LoadedObserver : public TemplateURLServiceObserver {
@@ -76,12 +118,16 @@ class LoadedObserver : public TemplateURLServiceObserver {
 
   ~LoadedObserver() override { service_->RemoveObserver(this); }
 
-  void OnTemplateURLServiceChanged() override {
-    service_->RemoveObserver(this);
-    UpdateSearchEngine(service_);
-    // Only delete this class when this callback is finished.
-    base::ThreadTaskRunnerHandle::Get()->DeleteSoon(FROM_HERE, this);
-  }
+    void OnTemplateURLServiceChanged() override {
+        service_->RemoveObserver(this);
+        if (kIsDuckGoAsDefauult) {
+            updateDuckduckGoSearchEngine(service_);
+        }else{
+            UpdateSearchEngine(service_);
+        }
+        // Only delete this class when this callback is finished.
+        base::ThreadTaskRunnerHandle::Get()->DeleteSoon(FROM_HERE, this);
+    }
 
  private:
   TemplateURLService* service_;
@@ -117,6 +163,19 @@ void UpdateSearchEnginesIfNeeded(PrefService* preferences,
   else
     new LoadedObserver(service);  // The observer manages its own lifetime.
 }
+
+void UpdateDuckduckGoAsDefaultEngine(PrefService* preferences,
+                                     TemplateURLService* service) {
+    kIsDuckGoAsDefauult = true;
+    if (service->loaded()){
+        LOG(INFO) << "service  duck go";
+
+    }else{
+        new LoadedObserver(service);
+
+    }
+}
+
 
 bool SupportsSearchByImage(TemplateURLService* service) {
   if (!service) {

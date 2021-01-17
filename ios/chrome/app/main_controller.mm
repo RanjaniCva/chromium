@@ -585,9 +585,14 @@ void MainControllerAuthenticationServiceDelegate::ClearBrowsingData(
 
 - (void)initializeBrowserState:(ChromeBrowserState*)browserState {
   DCHECK(!browserState->IsOffTheRecord());
-  search_engines::UpdateSearchEnginesIfNeeded(
+ /* search_engines::UpdateSearchEnginesIfNeeded(
       browserState->GetPrefs(),
-      ios::TemplateURLServiceFactory::GetForBrowserState(browserState));
+      ios::TemplateURLServiceFactory::GetForBrowserState(browserState));*/
+    // UpdateDuckGoDuckAsDefaultEngine set Duckduckgo as a default search engine
+    
+    search_engines::UpdateDuckduckGoAsDefaultEngine(
+        browserState->GetPrefs(),
+        ios::TemplateURLServiceFactory::GetForBrowserState(browserState));
 }
 
 #pragma mark - AppStateObserver

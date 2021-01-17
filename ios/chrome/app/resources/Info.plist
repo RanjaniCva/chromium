@@ -2,25 +2,21 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIFileSharingEnabled</key>
-	<true/>
-	<key>UIApplicationShortcutWidget</key>
-	<string>${IOS_BUNDLE_ID_PREFIX}.${CONTENT_WIDGET_EXTENSION_BUNDLE_ID}</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
-	<string>${CHROMIUM_SHORT_NAME}</string>
+	<string>BrowserX</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>com.adobe.pdf</string>
-			</array>
 			<key>CFBundleTypeName</key>
 			<string>PDF</string>
 			<key>LSHandlerRank</key>
 			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.adobe.pdf</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -81,6 +77,14 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>0.0.0</string>
+	<key>FirebaseScreenReportingEnabled</key>
+	<false/>
+	<key>KSChannelChromeScheme</key>
+	<string>${CHROMIUM_URL_CHANNEL_SCHEME}</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>googledrive</string>
+	</array>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -88,6 +92,18 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>IDS_IOS_BLUETOOTH_USAGE_DESCRIPTION</string>
+	<key>NSCameraUsageDescription</key>
+	<string>IDS_IOS_CAMERA_USAGE_DESCRIPTION</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>IDS_IOS_FACE_ID_USAGE_DESCRIPTION</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>IDS_IOS_LOCATION_WHEN_IN_USE_USAGE_DESCRIPTION</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>IDS_IOS_MICROPHONE_USAGE_DESCRIPTION</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>IDS_IOS_PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>${CHROMIUM_HANDOFF_ID}</string>
@@ -97,10 +113,8 @@
 		<string>OpenInChromeIncognitoIntent</string>
 		<string>SearchInChromeIntent</string>
 	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>audio</string>
-	</array>
+	<key>SSOAuthURLScheme</key>
+	<string>${SSOAUTH_URL_SCHEME}</string>
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>
@@ -136,18 +150,28 @@
 			<string>OpenQRScanner</string>
 		</dict>
 	</array>
-	<key>UIPrerenderedIcon</key>
+	<key>UIApplicationShortcutWidget</key>
+	<string>${IOS_BUNDLE_ID_PREFIX}.${CONTENT_WIDGET_EXTENSION_BUNDLE_ID}</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
+	<key>UIFileSharingEnabled</key>
 	<true/>
-	<key>UIRequiresPersistentWiFi</key>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>arm64</string>
 	</array>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleLightContent</string>
+	<key>UIRequiresPersistentWiFi</key>
+	<true/>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -185,29 +209,5 @@
 			<string>org.appextension.find-login-action</string>
 		</dict>
 	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>googledrive</string>
-	</array>
-	<key>SSOAuthURLScheme</key>
-	<string>${SSOAUTH_URL_SCHEME}</string>
-	<key>KSChannelChromeScheme</key>
-	<string>${CHROMIUM_URL_CHANNEL_SCHEME}</string>
-	<key>NSCameraUsageDescription</key>
-	<string>IDS_IOS_CAMERA_USAGE_DESCRIPTION</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>IDS_IOS_LOCATION_WHEN_IN_USE_USAGE_DESCRIPTION</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>IDS_IOS_MICROPHONE_USAGE_DESCRIPTION</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>IDS_IOS_PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>IDS_IOS_BLUETOOTH_USAGE_DESCRIPTION</string>
-	<key>NSFaceIDUsageDescription</key>
-	<string>IDS_IOS_FACE_ID_USAGE_DESCRIPTION</string>
-	<key>FirebaseScreenReportingEnabled</key>
-	<false/>
 </dict>
 </plist>

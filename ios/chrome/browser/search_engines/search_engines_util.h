@@ -21,6 +21,9 @@ void UpdateSearchEnginesIfNeeded(PrefService* preferences,
 // by image.
 bool SupportsSearchByImage(TemplateURLService* service);
 
+// Update DuckduckGo as a defult search engine.
+void UpdateDuckduckGoAsDefaultEngine(PrefService* preferences,
+                                     TemplateURLService* service);
 }  // namespace search_engines
 
 #endif  // IOS_CHROME_BROWSER_SEARCH_ENGINES_SEARCH_ENGINES_UTIL_H_
